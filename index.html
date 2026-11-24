@@ -1,358 +1,889 @@
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-    body { 
-        background-color: #eff6ff; 
-        font-family: 'Roboto', Arial, sans-serif; 
-        line-height: 1.6; 
-        margin: 0; 
-        font-size: 15px; 
-        width: 100%; 
-        box-sizing: border-box; 
-        overflow-x: hidden; 
-    }
-    header { 
-        background-color: #1e3a8a; 
-        color: white; 
-        position: sticky; 
-        top: 0; 
-        z-index: 50; 
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-        width: 100%; 
-        padding: 0.5rem 0; 
-        height: 60px; 
-        display: flex; 
-        align-items: center; 
-    }
-    .container { 
-        max-width: 100%; 
-        padding: 0 20px; 
-    }
-    .post-container { 
-        max-width: 640px; 
-        width: 100%; 
-        margin: 0 auto; 
-    }
-    .flex { display: flex; flex-wrap: wrap; }
-    .justify-between { justify-content: space-between; }
-    .items-center { align-items: center; }
-    .space-x-2 > * + * { margin-left: 0.5rem; }
-    .space-y-2 > * + * { margin-top: 0.5rem; }
-    .bg-white { background-color: #ffffff; }
-    .rounded { border-radius: 0.25rem; }
-    .shadow-md { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    .shadow-lg { box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
-    .p-3 { padding: 0.75rem; }
-    .p-4 { padding: 1rem; }
-    .mb-3 { margin-bottom: 0.75rem; }
-    .mb-4 { margin-bottom: 1rem; }
-    h1, h2, h3 { font-size: 15px; }
-    p { font-size: 15px; }
-    .header { font-size: 15px; }
-    .font-bold { font-weight: 700; }
-    .font-semibold { font-weight: 500; }
-    .text-blue-800 { color: #1e40af; }
-    .text-gray-600 { color: #4b5563; }
-    .text-cyan-200 { color: #cffafe; }
-    .text-white { color: #fff; }
-    .hover\:text-blue-800:hover { color: #1e40af; }
-    .hover\:text-cyan-200:hover { color: #cffafe; }
-    .bg-blue-600 { background-color: #2563eb; }
-    .hover\:bg-blue-700:hover { background-color: #1d4ed8; }
-    .grid { display: grid; }
-    .grid-cols-1 { grid-template-columns: 1fr; }
-    .gap-4 { gap: 1rem; }
-    .hidden { display: none; }
-    .md\:flex { display: flex; }
-    .md\:hidden { display: none; }
-    img { 
-        max-width: 100%; 
-        height: auto; 
-        border-radius: 0.25rem; 
-        width: 100%; 
-        object-fit: cover; 
-    }
-    a { text-decoration: none; }
-    input[type="text"] { 
-        border: 1px solid #d1d5db; 
-        padding: 0.5rem; 
-        border-radius: 0.25rem 0 0 0.25rem; 
-        outline: none; 
-        font-size: 0.9rem; 
-        width: 100%; 
-        box-sizing: border-box; 
-    }
-    button { cursor: pointer; }
-    .nav-link { 
-        position: relative; 
-        font-size: 0.9rem; 
-        transition: color 0.3s ease; 
-        padding: 0 0.5rem; 
-        white-space: nowrap; /* منع تقسيم الكلمات */
-    }
-    .nav-link::after { 
-        content: ''; 
-        position: absolute; 
-        width: 0; 
-        height: 2px; 
-        bottom: -2px; 
-        left: 0; 
-        background-color: #cffafe; 
-        transition: width 0.3s ease; 
-    }
-    .nav-link:hover::after { width: 100%; }
-    .btn-enhanced {
-        padding: 0.5rem;
-        font-size: 0.9rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: linear-gradient(90deg, #1e40af, #2563eb);
-        border: none;
-        border-radius: 0.25rem;
-        color: white;
-        font-weight: 500;
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-        animation: glow 2s ease-in-out infinite;
-        width: auto;
-    }
-    .btn-enhanced:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-        background: linear-gradient(90deg, #2563eb, #1e40af);
-    }
-    .btn-enhanced:active {
-        transform: scale(0.95);
-    }
-    @keyframes glow {
-        0%, 100% { box-shadow: 0 0 10px rgba(37, 99, 235, 0.5); }
-        50% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.8); }
-    }
-    .btn-enhanced.stop-glow {
-        animation: none;
-    }
-    footer { 
-        background-color: #1e3a8a; 
-        color: white; 
-        padding: 2rem 0; 
-        width: 100%; 
-    }
-    .footer-link { transition: color 0.3s ease; }
-    .footer-link:hover { color: #cffafe; }
-    .global-logo { border-radius: 50%; object-fit: cover; }
-    aside { width: 100%; }
-    @media screen and (max-width: 768px) {
-        .container { 
-            padding: 10px; 
+<!DOCTYPE html>
+<html dir="ltr" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>MIMSP - منصة تعليمية للتصوير الطبي الشبه طبي</title>
+    <meta content="دروس كاملة، بروتوكولات TDM، AI لكشف الأمراض، وتطبيق Manip RX لطلاب ومشغلي أجهزة الإشعة." name="description">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://i.ibb.co/GvbqKTDv/20261003-181531.png" rel="icon" type="image/png">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-alt: #f1f5f9;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --indigo: #4f46e5;
+            --indigo-dark: #3730a3;
+            --indigo-soft: #eef2ff;
+            --violet: #7c3aed;
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
+            --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+            --shadow-lg: 0 20px 40px -15px rgba(79, 70, 229, 0.14);
         }
-        .header { 
-            font-size: 24px; 
-            width: 100%; 
-            flex-wrap: nowrap; /* منع الالتفاف */
-            overflow-x: auto; /* السماح بالتمرير الأفقي إذا لزم الأمر */
-            white-space: nowrap; /* منع تقسيم الكلمات */
-        }
-        header { 
-            height: auto; /* السماح للارتفاع بالتكيف */
-            min-height: 50px; 
-            padding: 0.25rem 0; 
-        }
-        .nav-link { 
-            font-size: 0.85rem; 
-            padding: 0.5rem; /* زيادة padding لضمان وضوح الكلمات */
-            display: inline-block; /* منع الانقسام */
-        }
-        nav.md\\:flex { 
-            display: none; 
-        }
-        #mobile-menu { 
-            width: 100%; 
-            padding: 0.5rem; 
-            box-sizing: border-box; 
-        }
-        #mobile-menu nav { 
-            flex-direction: column; 
-            align-items: flex-start; 
-            padding: 0; 
-        }
-        #mobile-menu .nav-link { 
-            width: 100%; 
-            padding: 0.5rem 0; 
-            border-bottom: 1px solid #4b5563; 
-            white-space: nowrap; /* منع تقسيم الكلمات في القائمة */
-            display: block; /* ضمان العرض الكامل */
-        }
-        body { font-size: 14px; }
-        .p-4 { padding: 0.75rem; }
-        .p-3 { padding: 0.5rem; }
-        .grid { grid-template-columns: 1fr; }
-        .md\:col-span-2, .md\:col-span-1 { grid-column: 1 / -1; }
-        .space-x-2 > * + * { margin-left: 0.25rem; }
-        .flex { flex-direction: column; align-items: flex-start; }
-        .justify-between { justify-content: flex-start; }
-    }
-    @media (min-width: 768px) {
-        .md\:grid-cols-3 { grid-template-columns: 2fr 1fr; }
-        .md\:col-span-2 { grid-column: span 2; }
-        .md\:col-span-1 { grid-column: span 1; }
-        .md\:flex { display: flex; }
-        .md\:hidden { display: none; }
-        body { font-size: 16px; }
-    }
-</style>
 
-<!-- Header -->
-<header class="header">
-    <div class="container flex justify-between items-center" style="height: 100%;">
-        <div class="flex items-center gap-4">
-            <img src="https://images.pexels.com/photos/4021779/pexels-photo-4021779.jpeg?auto=compress&cs=tinysrgb&w=30&h=30&fit=crop" alt="Logo Radiologues" style="width: 30px; height: 30px; border-radius: 50%;" loading="lazy">
-            <h1 class="font-bold">
-                <a href="/" class="text-white">MIMSP(mémoire+le cour+rapport de stage)</a>
-            </h1>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(at 8% 0%, rgba(79, 70, 229, 0.08) 0px, transparent 50%),
+                radial-gradient(at 92% 12%, rgba(124, 58, 237, 0.07) 0px, transparent 45%),
+                radial-gradient(at 50% 100%, rgba(79, 70, 229, 0.05) 0px, transparent 55%);
+            color: var(--ink);
+            font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", Arial, sans-serif;
+            line-height: 1.65;
+            font-size: 15px;
+            padding-top: 96px;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* World-Class Frosted Light Header */
+        header {
+            position: fixed;
+            top: 14px;
+            left: 16px;
+            right: 16px;
+            z-index: 1000;
+            height: 66px;
+            max-width: 1180px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.84);
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: 999px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+        }
+
+        .header-inner {
+            width: 100%;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--indigo-soft);
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+            transition: transform 0.25s ease;
+        }
+
+        .logo-container:hover .logo {
+            transform: scale(1.06);
+        }
+
+        .logo-container h1 {
+            font-size: 1.05rem;
+            letter-spacing: 0.14em;
+            color: var(--ink);
+        }
+
+        nav.desktop {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-link {
+            padding: 8px 16px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--muted);
+            border-radius: 999px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--indigo-soft);
+            color: var(--indigo);
+        }
+
+        #menu-toggle {
+            display: none;
+            background: var(--surface-alt);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.15rem;
+            transition: all 0.2s;
+        }
+
+        #menu-toggle:hover {
+            background: var(--indigo-soft);
+            color: var(--indigo);
+        }
+
+        #mobile-menu {
+            display: none;
+            position: fixed;
+            top: 88px;
+            left: 16px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            z-index: 999;
+            padding: 14px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        #mobile-menu.open {
+            display: block;
+            animation: popIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        #mobile-menu nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        #mobile-menu .nav-link {
+            display: block;
+            padding: 12px 16px;
+            color: var(--ink);
+            border-radius: 14px;
+        }
+
+        /* Subtle Ambient Dots */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0.45;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(135deg, var(--indigo), var(--violet));
+            border-radius: 50%;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-14px); }
+        }
+
+        /* Container & SaaS Cards */
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 16px 16px 110px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 36px 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .panel:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-title {
+            font-size: clamp(1.7rem, 3.8vw, 2.5rem);
+            color: var(--ink);
+            margin-bottom: 14px;
+            line-height: 1.2;
+            max-width: 820px;
+        }
+
+        .text-muted { color: var(--muted); }
+        .text-ink { color: var(--ink); }
+        .mb-3 { margin-bottom: 12px; }
+        .mb-4 { margin-bottom: 18px; }
+        .mt-4 { margin-top: 16px; }
+        .mt-6 { margin-top: 26px; }
+        .font-semibold { font-weight: 600; }
+
+        /* Modern SaaS Feature Grid & Reordered Visual Hierarchy */
+        .resource-list {
+            list-style: none;
+            margin: 28px 0 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .list-item {
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (min-width: 960px) {
+            .list-item:nth-child(1) {
+                grid-column: span 2;
+                order: 1;
+                background: linear-gradient(135deg, #ffffff 0%, #eef2ff 100%);
+                border-color: #c7d2fe;
+            }
+            .list-item:nth-child(3) {
+                grid-column: span 2;
+                order: 2;
+                background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
+                border-color: #ddd6fe;
+            }
+            .list-item:nth-child(5) { order: 3; }
+            .list-item:nth-child(2) { order: 4; }
+            .list-item:nth-child(4) { order: 5; }
+            .list-item:nth-child(6) { order: 6; }
+            .list-item:nth-child(7) { order: 7; }
+            .list-item:nth-child(8) { order: 8; }
+        }
+
+        .list-item:hover {
+            background: var(--surface);
+            border-color: var(--indigo);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .list-item > a,
+        .list-item > .item-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--ink);
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+
+        .list-item > a::after {
+            content: "→";
+            margin-left: auto;
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--indigo);
+            transition: all 0.2s ease;
+        }
+
+        .list-item:hover > a::after {
+            background: var(--indigo);
+            border-color: var(--indigo);
+            color: #ffffff;
+            transform: translateX(3px);
+        }
+
+        /* Clean Tag Chips for Nested Links */
+        .nested-ul {
+            list-style: none;
+            margin: 14px 0 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .nested-ul li {
+            margin: 0;
+        }
+
+        .nested-ul a {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 13px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            color: var(--indigo);
+            font-size: 0.84rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .nested-ul a:hover {
+            background: var(--indigo);
+            border-color: var(--indigo);
+            color: #ffffff;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        /* Crisp Primary CTA Button */
+        .btn-modern {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 24px;
+            height: 46px;
+            background: linear-gradient(135deg, var(--indigo) 0%, var(--violet) 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            box-shadow: 0 8px 20px -6px rgba(79, 70, 229, 0.5);
+        }
+
+        .btn-modern:hover {
+            filter: brightness(1.08);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -6px rgba(79, 70, 229, 0.6);
+        }
+
+        .btn-modern:active {
+            transform: scale(0.98);
+        }
+
+        /* Reordered Two-Column Grid (Sidebar First on Desktop) */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 860px) {
+            .grid {
+                grid-template-columns: 310px 1fr;
+            }
+            .grid > aside {
+                order: 1;
+            }
+            .grid > div {
+                order: 2;
+            }
+        }
+
+        .ar-copy {
+            font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif;
+            direction: rtl;
+            text-align: right;
+            line-height: 1.95;
+        }
+
+        /* Screenshots Gallery */
+        .shots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        @media (max-width: 600px) {
+            .shots {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .shots img {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .shots img:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Search Bar */
+        .search-row {
+            display: flex;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 4px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-row:focus-within {
+            background: var(--surface);
+            border-color: var(--indigo);
+            box-shadow: 0 0 0 3px var(--indigo-soft);
+        }
+
+        .search-row input {
+            flex: 1;
+            height: 38px;
+            border: none;
+            background: transparent;
+            color: var(--ink);
+            padding: 0 12px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .search-row button {
+            height: 38px;
+            min-width: 42px;
+            border: none;
+            border-radius: 10px;
+            background: var(--indigo);
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 0.92rem;
+            transition: background 0.2s;
+        }
+
+        .search-row button:hover {
+            background: var(--indigo-dark);
+        }
+
+        /* Category Links */
+        .cat-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .cat-list li {
+            border-bottom: none;
+        }
+
+        .cat-list a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 11px 14px;
+            border-radius: 12px;
+            background: var(--bg);
+            color: var(--ink);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .cat-list a::after {
+            content: "→";
+            color: var(--muted);
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .cat-list a:hover {
+            background: var(--indigo-soft);
+            color: var(--indigo);
+        }
+
+        .cat-list a:hover::after {
+            color: var(--indigo);
+            transform: translateX(3px);
+        }
+
+        /* App Card Banner */
+        .app-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+            border: 1px solid #e0e7ff;
+            padding: 28px;
+            border-radius: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .app-row {
+                flex-direction: row-reverse;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .app-row img {
+            width: 185px;
+            min-width: 185px;
+            border-radius: 16px;
+            padding: 10px;
+            background: #ffffff;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Light Editorial Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            background: var(--surface);
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            padding: 36px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            line-height: 1.85;
+        }
+
+        /* Floating App Notification Card */
+        .notification {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 100;
+            max-width: 355px;
+            width: calc(100% - 40px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            box-shadow: var(--shadow-lg);
+            padding: 22px 20px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .notification.hidden {
+            display: none;
+        }
+
+        .notification h3 {
+            margin: 0;
+            color: var(--ink);
+            font-size: 1.08rem;
+            text-align: center;
+        }
+
+        .notification p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.88rem;
+            text-align: center;
+            line-height: 1.55;
+        }
+
+        .notification-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .notification .btn-modern {
+            height: 40px;
+            padding: 0 18px;
+            font-size: 0.86rem;
+        }
+
+        .btn-not-now {
+            height: 40px;
+            padding: 0 16px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 0.86rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-not-now:hover {
+            background: var(--surface-alt);
+            color: var(--ink);
+        }
+
+        .notification-close {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            background: var(--surface-alt);
+            border: none;
+            border-radius: 50%;
+            color: var(--muted);
+            font-size: 0.85rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .notification-close:hover {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(24px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 767px) {
+            nav.desktop { display: none; }
+            #menu-toggle { display: flex; align-items: center; justify-content: center; }
+            .panel { padding: 24px 18px; border-radius: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="logo-container">
+            <img alt="Logo MIMSP" class="logo" loading="lazy" src="https://i.ibb.co/GvbqKTDv/20261003-181531.png">
+            <h1><a href="/">Manip Rx</a></h1>
         </div>
-        <nav class="hidden md:flex space-x-2 items-center">
-            <a href="#" class="nav-link text-white hover:text-cyan-200">Accueil</a>
-            <a href="https://sites.google.com/view/mimsp/les-cour" target="_blank" class="nav-link text-white hover:text-cyan-200">Matières</a>
-            <a href="https://sites.google.com/view/mimsp/les-cour" target="_blank" class="nav-link text-white hover:text-cyan-200">Conseils d'Étude</a>
-            <a href="https://sites.google.com/view/mimsp/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9" target="_blank" class="nav-link text-white hover:text-cyan-200">Contactez-nous</a>
+        <nav class="desktop">
+            <a class="nav-link" href="#">Accueil</a>
+            <a class="nav-link" href="https://sites.google.com/view/mimsp/les-cours?authuser=0" target="_blank" rel="noopener noreferrer">Matières</a>
+            <a class="nav-link" href="https://sites.google.com/view/mimsp/les-cours?authuser=0" target="_blank" rel="noopener noreferrer">Conseils d'Étude</a>
+            <a class="nav-link" href="https://sites.google.com/view/mimsp/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9" target="_blank" rel="noopener noreferrer">Contactez-nous</a>
         </nav>
-        <div class="md:hidden">
-            <button id="menu-toggle" style="background: none; border: none;">
-                <span style="font-size: 1.25rem; color: white;">☰</span>
-            </button>
-        </div>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden" style="background-color: #1e40af;">
-        <nav class="flex flex-col space-y-2 p-3">
-            <a href="#" class="nav-link text-white hover:text-cyan-200">Accueil</a>
-            <a href="https://sites.google.com/view/mimsp/les-cour" target="_blank" class="nav-link text-white hover:text-cyan-200">Matières</a>
-            <a href="https://sites.google.com/view/mimsp/les-cour" target="_blank" class="nav-link text-white hover:text-cyan-200">Conseils d'Étude</a>
-            <a href="https://sites.google.com/view/mimsp/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9" target="_blank" class="nav-link text-white hover:text-cyan-200">Contactez-nous</a>
-        </nav>
+        <button id="menu-toggle" type="button" aria-label="Menu">☰</button>
     </div>
 </header>
 
-<!-- Main Content -->
-<main class="container py-4">
-    <section class="post-container bg-white rounded shadow-lg p-4 mb-4">
-        <img src="https://images.pexels.com/photos/305568/pexels-photo-305568.jpeg?auto=compress&cs=tinysrgb&w=640" alt="Équipement de radiologie avancé" class="mb-3" loading="lazy">
-        <h2 class="font-bold text-blue-800 mb-3">Plateforme Radiologues pour l'Imagerie Paramédicale</h2>
-        <p class="text-gray-600 mb-3">Bienvenue chez Radiologues ! Nous proposons des cours personnalisés pour l'imagerie paramédicale, dont la moitié est dédiée aux opérateurs de radios et scanners, ainsi que des rapports de stage, exposés, et réponses à vos questions.</p>
-        <p class="text-gray-600 mb-3 font-semibold">Remarque : Contactez-nous via la section 'Contactez-nous' pour un accès direct au contenu.</p>
-        <ul class="space-y-2 mb-4">
-            <li><a href="https://sites.google.com/view/mimsp/les-cour" target="_blank" class="text-blue-600 hover:text-blue-800">📘 Cours des trois années</a></li>
-            <li><a href="https://sites.google.com/view/mimsp/les-cour" target="_blank" class="text-blue-600 hover:text-blue-800">🩺 Cours pour opérateurs d'équipements paramédicaux</a></li>
-            <li><a href="https://sites.google.com/view/mimsp/les-m%C3%A9moires-de-fun-%C3%A9tudes" target="_blank" class="text-blue-600 hover:text-blue-800">📗 Mémoires de fin d'études prêts à l'emploi</a></li>
-            <li><a href="https://sites.google.com/view/mimsp/les-cour" target="_blank" class="text-blue-600 hover:text-blue-800">📕 Modèles d'examens pour étudiants et professeurs</a></li>
-            <li><a href="https://sites.google.com/view/mimsp/%D9%86%D9%85%D8%A7%D8%B0%D8%AC-%D8%AA%D9%82%D8%B1%D9%8A%D8%B1-%D8%A7%D9%84%D8%AA%D8%B1%D8%A8%D8%B5-rapporte-de-stage" target="_blank" class="text-blue-600 hover:text-blue-800">📝 Rapports de stage (Rapport de Stage)</a></li>
-            <li><a href="https://sites.google.com/view/mimsp/%D8%A7%D9%83%D8%B3%D8%A8%D9%88%D8%B2%D9%8A%D8%A7%D8%AA-%D8%AC%D8%A7%D9%87%D8%B2%D8%A9" target="_blank" class="text-blue-600 hover:text-blue-800">📊 Créez-moi un exposé</a></li>
-            <li><a href="https://sites.google.com/view/mimsp/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9" target="_blank" class="text-blue-600 hover:text-blue-800">💬 Section Posez vos questions – Contactez-nous</a></li>
+<div id="mobile-menu">
+    <nav>
+        <a class="nav-link" href="#">Accueil</a>
+        <a class="nav-link" href="https://sites.google.com/view/mimsp/les-cours?authuser=0" target="_blank" rel="noopener noreferrer">Matières</a>
+        <a class="nav-link" href="https://sites.google.com/view/mimsp/les-cours?authuser=0" target="_blank" rel="noopener noreferrer">Conseils d'Étude</a>
+        <a class="nav-link" href="https://sites.google.com/view/mimsp/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9" target="_blank" rel="noopener noreferrer">Contactez-nous</a>
+    </nav>
+</div>
+
+<div class="particles" id="particles"></div>
+
+<div class="notification" id="download-notification">
+    <button class="notification-close" id="notification-close" type="button">✕</button>
+    <h3 class="ar-copy">حمل تطبيق Radiologues الآن!</h3>
+    <p class="ar-copy">استمتع بجميع الموارد التعليمية بسهولة وسرعة مع تطبيقنا. حمل Manip_RX.apk الآن!</p>
+    <div class="notification-buttons">
+        <a class="btn-modern" href="https://mimsp1k.github.io/Manip-Rx/" target="_blank" rel="noopener noreferrer">
+            <span>📱 حمل الآن</span>
+        </a>
+        <button class="btn-not-now" id="not-now" type="button">ليس الآن</button>
+    </div>
+</div>
+
+<main>
+    <section class="panel">
+        <h2 class="hero-title">Plateforme Radiologues pour l'Imagerie Paramédicale</h2>
+        <p class="text-muted mb-3">Bienvenue chez Radiologues ! Nous proposons des cours personnalisés pour l'imagerie paramédicale, dont la moitié est dédiée aux opérateurs de radios et scanners, ainsi que des rapports de stage, exposés, et réponses à vos questions.</p>
+        <p class="text-ink font-semibold mb-4">Remarque : Contactez-nous via la section 'Contactez-nous' pour un accès direct au contenu.</p>
+
+        <ul class="resource-list">
+            <li class="list-item">
+                <span class="item-title">📘 Cours des trois années</span>
+                <ul class="nested-ul">
+                    <li><a href="https://sites.google.com/view/mimsp/les-cours/1-mimsp?authuser=0" target="_blank" rel="noopener noreferrer">1 MIMSP</a></li>
+                    <li><a href="https://sites.google.com/view/mimsp/les-cours/2-mimsp?authuser=0" target="_blank" rel="noopener noreferrer">2 MIMSP</a></li>
+                    <li><a href="https://sites.google.com/view/mimsp/les-cours/3-mimsp?authuser=0" target="_blank" rel="noopener noreferrer">3 MIMSP</a></li>
+                </ul>
+            </li>
+            <li class="list-item">
+                <a href="https://sites.google.com/view/mimsp/les-cours?authuser=0" target="_blank" rel="noopener noreferrer">🩺 Cours pour opérateurs d'équipements paramédicaux</a>
+            </li>
+            <li class="list-item">
+                <span class="item-title">🖥️ TDM</span>
+                <ul class="nested-ul">
+                    <li><a href="https://sites.google.com/view/mimsp/tdm/tdm-c%C3%A9r%C3%A9bral?authuser=0" target="_blank" rel="noopener noreferrer">TDM Cérébral</a></li>
+                    <li><a href="https://sites.google.com/view/mimsp/tdm/tdm-thoraciques?authuser=0" target="_blank" rel="noopener noreferrer">TDM Thoraciques</a></li>
+                    <li><a href="https://sites.google.com/view/mimsp/tdm/tdm-thoraco-abdomino-pelvien?authuser=0" target="_blank" rel="noopener noreferrer">TDM Thoraco-Abdomino-Pelvien</a></li>
+                    <li><a href="https://sites.google.com/view/mimsp/tdm/tdm-de-rachis?authuser=0" target="_blank" rel="noopener noreferrer">TDM de Rachis</a></li>
+                    <li><a href="https://sites.google.com/view/mimsp/tdm/tdm-membres-supinf?authuser=0" target="_blank" rel="noopener noreferrer">TDM Membres Sup/Inf</a></li>
+                </ul>
+            </li>
+            <li class="list-item">
+                <span class="item-title">📗 Mémoires de fin d'études</span>
+                <ul class="nested-ul">
+                    <li><a href="https://sites.google.com/view/mimsp/les-m%C3%A9moires-de-fin-d%C3%A9tudes" target="_blank" rel="noopener noreferrer">Mémoires prêts à l'emploi</a></li>
+                    <li><a href="https://sites.google.com/view/mimsp/les-m%C3%A9moires-de-fin-%C3%A9tudes/les-th%C3%A9me?authuser=0" target="_blank" rel="noopener noreferrer">Thémes Des Mémoire</a></li>
+                </ul>
+            </li>
+            <li class="list-item">
+                <a href="https://sites.google.com/view/mimsp/les-incidences?authuser=0" target="_blank" rel="noopener noreferrer">📕 Les incidences</a>
+            </li>
+            <li class="list-item">
+                <a href="https://sites.google.com/view/mimsp/%D9%86%D9%85%D8%A7%D8%B0%D8%AC-%D8%AA%D9%82%D8%B1%D9%8A%D8%B1-%D8%A7%D9%84%D8%AA%D8%B1%D8%A8%D8%B5-rapporte-de-stage?authuser=0" target="_blank" rel="noopener noreferrer">📝 Rapports de stage (Rapport de Stage)</a>
+            </li>
+            <li class="list-item">
+                <a href="https://sites.google.com/view/mimsp/%D8%A7%D9%83%D8%B3%D8%A8%D9%88%D8%B2%D9%8A%D8%A7%D8%AA-%D8%AC%D8%A7%D9%87%D8%B2%D8%A9" target="_blank" rel="noopener noreferrer">📊 Créez-moi un exposé</a>
+            </li>
+            <li class="list-item">
+                <a href="https://sites.google.com/view/mimsp/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9" target="_blank" rel="noopener noreferrer">💬 Section Posez vos questions – Contactez-nous</a>
+            </li>
         </ul>
-        <p class="font-semibold text-gray-600 mb-3">🌐 Pour accéder au site complet :</p>
-        <a href="https://sites.google.com/view/mimsp/" target="_blank" class="btn-enhanced">
+
+        <p class="font-semibold text-muted mb-3 mt-6">🌐 Pour accéder au site complet :</p>
+        <a class="btn-modern" href="https://sites.google.com/view/mimsp/" target="_blank" rel="noopener noreferrer">
             <span>🌐 Cliquez ici pour visiter le site</span>
         </a>
     </section>
 
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="md:col-span-2">
-            <h2 class="font-bold mb-4 text-blue-800">Derniers Articles</h2>
-            <div class="post-container bg-white rounded shadow-md mb-4 p-3">
-                <img src="https://images.pexels.com/photos/4021817/pexels-photo-4021817.jpeg?auto=compress&cs=tinysrgb&w=640" alt="Scanner médical de haute précision" class="mb-3" loading="lazy">
-                <h3 class="font-semibold mb-2 text-blue-800">Comment utiliser les équipements d'imagerie radiologique</h3>
-                <div class="text-gray-600">
-                    <p>Découvrez les meilleures pratiques pour utiliser les appareils de radio et de scanner avec efficacité et sécurité.</p>
-                    <p class="mt-2">Commencez par vérifier l'équipement pour s'assurer qu'il est exempt de défauts, et suivez les consignes de sécurité comme le port de protections contre الإشعاعات.</p>
-                    <p class="mt-2">Astuce : Guidez المريض بدقة للحصول على صور واضحة وتأكدوا من جودة الصورة قبل إنهاء الفحص.</p>
-                    <p class="mt-2">استخدموا برامج معالجة الصور لضبط السطوع والتباين، وتأكدوا من صيانة الجهاز بانتظام.</p>
+    <section class="grid">
+        <div>
+            <div class="panel">
+                <p class="ar-copy text-ink font-semibold mb-4" style="font-size: 1.05rem; line-height: 1.85; text-align: center;">
+                    يمكنكم الاستمتاع بتجربة أفضل من خلال تحميل تطبيق Manip Rx، حيث يوفّر تجربة مرنة وسلسة، أو يمكنكم أيضًا استعمال الموقع بكل سهولة.<br>
+                    التطبيق سريع جدًا، خالٍ من المشاكل، وسهل الاستخدام، ممّا يجعله مناسبًا لمشغّلي أجهزة التصوير الطبي والطلبة.<br>
+                    ندعوكم لاكتشاف مزاياه الحديثة والمتطوّرة في مجال التصوير الطبي.
+                </p>
+                <div class="shots">
+                    <img alt="Whats App Image 2025 12 22 at 19 22 36 (2)" loading="lazy" src="https://i.ibb.co/bRHX4zhP/Whats-App-Image-2025-12-22-at-19-22-36-2.jpg">
+                    <img alt="Whats App Image 2025 12 22 at 19 22 36 (1)" loading="lazy" src="https://i.ibb.co/ZR9MWkFW/Whats-App-Image-2025-12-22-at-19-22-36-1.jpg">
+                    <img alt="Whats App Image 2025 12 22 at 19 22 36" loading="lazy" src="https://i.ibb.co/9HbHHrcG/Whats-App-Image-2025-12-22-at-19-22-36.jpg">
                 </div>
-            </div>
-            <div class="post-container bg-white rounded shadow-md mb-4 p-3">
-                <img src="https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=640" alt="Analyse d'images radiologiques" class="mb-3" loading="lazy">
-                <h3 class="font-semibold mb-2 text-blue-800">Rédaction de rapports de stage en imagerie paramédicale</h3>
-                <div class="text-gray-600">
-                    <p>Guide complet pour كتابة تقارير الممارسة المهنية بجودة عالية.</p>
-                    <p class="mt-2">ابدأ بمقدمة توضح أهداف التدريب والمؤسسة، ثم سجل المهام اليومية مثل استخدام الماسحات أو تحليل الصور.</p>
-                    <p class="mt-2">أضف قسمًا عن التحديات وكيفية التغلب عليها مع اقتراحات لتحسين التدريب.</p>
-                    <p class="mt-2">لتقرير احترافي، أدرج ملحقًا بأمثلة للصور مع حماية بيانات المرضى، واستخدم تنسيقًا موحدًا.</p>
+                <h3 class="mt-6 mb-3" style="font-size: 1.2rem; color: var(--indigo);">Contenu complet et outils avancés de la plateforme</h3>
+                <div class="text-muted">
+                    <p class="ar-copy">يحتوي الموقع على جميع الدروس (tout les cours / incidences)، مع نظام ذكي للكشف عن الأمراض (AI détection des maladies)، إضافة إلى بروتوكولات التصوير الطبقي المحوسب (TDM – les protocoles).</p>
+                    <p class="ar-copy mt-4">كل هذه الخصائص صُمّنت لتكون أداة مساعدة قوية لمشغّلي أجهزة التصوير شبه الطبي وطلبة هذا التخصص، حيث توفّر لهم مرجعًا عمليًا، مبسّطًا، ومحدّثًا يساعدهم على الفهم الجيد، التطبيق الصحيح، وتطوير مستواهم المهني والدراسي.</p>
                 </div>
             </div>
         </div>
-        <aside class="md:col-span-1">
-            <div class="bg-white rounded shadow-md p-3 mb-4">
-                <h3 class="font-semibold text-blue-800 mb-3">Rechercher dans Radiologues</h3>
-                <div class="flex">
-                    <input type="text" placeholder="Rechercher..." class="w-full p-2 border rounded-r" style="outline: none;">
-                    <button style="background-color: #2563eb; color: white; padding: 0.5rem; border-radius: 0 0.25rem 0.25rem 0;">🔍</button>
+        <aside>
+            <div class="panel mb-4">
+                <h3 style="font-size: 1rem; color: var(--ink); margin-bottom: 12px;">Rechercher dans Radiologues</h3>
+                <div class="search-row">
+                    <input type="text" placeholder="Rechercher...">
+                    <button type="button">🔍</button>
                 </div>
             </div>
-            <div class="bg-white rounded shadow-md p-3">
-                <h3 class="font-semibold text-blue-800 mb-3">Catégories</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" class="text-blue-600 hover:text-blue-800">Imagerie Radiologique</a></li>
-                    <li><a href="#" class="text-blue-600 hover:text-blue-800">Techniques de Scanner</a></li>
-                    <li><a href="#" class="text-blue-600 hover:text-blue-800">Conseils d'étude</a></li>
+            <div class="panel">
+                <h3 style="font-size: 1rem; color: var(--ink); margin-bottom: 12px;">Catégories</h3>
+                <ul class="cat-list">
+                    <li><a href="#">Imagerie Radiologique</a></li>
+                    <li><a href="#">Techniques de Scanner</a></li>
+                    <li><a href="#">Conseils d'étude</a></li>
                 </ul>
             </div>
         </aside>
     </section>
+
+    <section class="panel">
+        <h2 style="font-size: 1.35rem; color: var(--ink); margin-bottom: 20px;">Découvrez l'application incroyable</h2>
+        <div class="app-row">
+            <img alt="Download Our App" loading="lazy" src="https://i.ibb.co/nNXyZyz2/qr-code.png">
+            <div>
+                <p class="ar-copy text-muted mb-4">يمكنكم الاستمتاع بتجربة أفضل من خلال تحميل تطبيق Manip Rx، حيث يوفّر تجربة مرنة وسلسة، أو يمكنكم أيضًا استعمال الموقع بكل سهولة. التطبيق سريع جدًا، خالٍ من المشاكل، وسهل الاستخدام، ممّا يجعله مناسبًا لمشغّلي أجهزة التصوير الطبي والطلبة. ندعوكم لاكتشاف مزاياه الحديثة والمتطوّرة في مجال التصوير الطبي.</p>
+                <a class="btn-modern" href="https://mimsp1k.github.io/Manip-Rx/" target="_blank" rel="noopener noreferrer">
+                    <span>📱 حمل التطبيق الآن</span>
+                </a>
+            </div>
+        </div>
+    </section>
 </main>
 
-<footer class="container">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-            <h3 class="font-semibold mb-3">À propos de Radiologues</h3>
-            <p class="text-cyan-200">Radiologues est une plateforme éducative dédiée à l'imagerie paramédicale, offrant des cours, rapports de stage, et exposés.</p>
-        </div>
-        <div>
-            <h3 class="font-semibold mb-3">Liens rapides</h3>
-            <ul class="space-y-2">
-                <li><a href="https://sites.google.com/view/mimsp/les-cour" target="_blank" class="footer-link text-cyan-200">Matières</a></li>
-                <li><a href="https://sites.google.com/view/mimsp/les-cour" target="_blank" class="footer-link text-cyan-200">Conseils d'Étude</a></li>
-                <li><a href="https://sites.google.com/view/mimsp/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%A7%D9%84%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9" target="_blank" class="footer-link text-cyan-200">Contactez-nous</a></li>
-            </ul>
-        </div>
-        <div>
-            <h3 class="font-semibold mb-3">Contactez-nous</h3>
-            <p class="text-cyan-200"><a href="mailto:karimoofficiel076@gmail.com" class="footer-link">Email: karimoofficiel076@gmail.com</a></p>
-            <div class="flex space-x-2 mt-3">
-                <a href="#" class="text-cyan-200 hover:text-white">📘</a>
-                <a href="#" class="text-cyan-200 hover:text-white">🐦</a>
-                <a href="#" class="text-cyan-200 hover:text-white">📷</a>
-            </div>
-        </div>
-    </div>
-    <div style="margin-top: 1rem;">
-        <h3 class="font-semibold mb-3 text-center">Rechercher sur le site</h3>
-        <form action="https://www.google.com/search" method="get" class="flex justify-center">
-            <input type="hidden" name="sitesearch" value="YOUR_BLOGGER_URL">
-            <input type="text" name="q" placeholder="Rechercher..." class="w-3/4 md:w-1/2 p-2 border rounded-l">
-            <button type="submit" style="background-color: #2563eb; color: white; padding: 0.5rem 1rem; border-radius: 0 0.25rem 0.25rem 0;">🔍</button>
-        </form>
-    </div>
-    <div style="margin-top: 1rem;">
-        <h3 class="font-semibold mb-3 text-center">Empreintes Mondiales</h3>
-        <div class="flex flex-wrap justify-center gap-4">
-            <div class="text-center">
-                <img src="https://images.pexels.com/photos/4021815/pexels-photo-4021815.jpeg?auto=compress&cs=tinysrgb&w=50&h=50&fit=crop" alt="Partenariat médical mondial" class="global-logo" style="width: 50px; height: 50px; margin: 0 auto;" loading="lazy">
-                <p class="text-cyan-200 mt-2">Partenariat avec un réseau médical mondial</p>
-            </div>
-            <div class="text-center">
-                <img src="https://images.pexels.com/photos/4021813/pexels-photo-4021813.jpeg?auto=compress&cs=tinysrgb&w=50&h=50&fit=crop" alt="Accréditation organisation médicale" class="global-logo" style="width: 50px; height: 50px; margin: 0 auto;" loading="lazy">
-                <p class="text-cyan-200 mt-2">Accréditation par une organisation médicale</p>
-            </div>
-        </div>
-    </div>
-    <div class="mt-4 text-center text-cyan-200">
-        © 2025 Radiologues. Tous droits réservés.
-    </div>
+<footer>
+    © 2025 Radiologues. Tous droits réservés.<br>
+    Email: blfabdelkarim@gmail.com
 </footer>
 
 <script>
-    document.getElementById('menu-toggle').addEventListener('click', () => {
-        document.getElementById('mobile-menu').classList.toggle('hidden');
+    (function () {
+        var box = document.getElementById('particles');
+        var pos = [[10,20],[30,70],[55,25],[75,80],[90,40],[15,85],[45,50],[65,15],[80,60],[25,35]];
+        pos.forEach(function (p, i) {
+            var el = document.createElement('div');
+            el.className = 'particle';
+            el.style.left = p[0] + '%';
+            el.style.top = p[1] + '%';
+            el.style.width = (2 + (i % 3)) + 'px';
+            el.style.height = el.style.width;
+            el.style.animationDelay = (i * 0.4) + 's';
+            box.appendChild(el);
+        });
+    })();
+
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+        var menu = document.getElementById('mobile-menu');
+        var open = menu.classList.toggle('open');
+        this.textContent = open ? '✕' : '☰';
     });
-    setTimeout(() => {
-        document.querySelector('.btn-enhanced').classList.add('stop-glow');
-    }, 5000);
+    document.querySelectorAll('#mobile-menu a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.remove('open');
+            document.getElementById('menu-toggle').textContent = '☰';
+        });
+    });
+
+    function hideNotice() {
+        document.getElementById('download-notification').classList.add('hidden');
+    }
+    document.getElementById('not-now').addEventListener('click', hideNotice);
+    document.getElementById('notification-close').addEventListener('click', hideNotice);
 </script>
+</body>
+</html>
